@@ -133,8 +133,13 @@
             font-weight: 600;
             font-size: 17px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
+            gap: 0;
+        }
+        
+        .dish-name .sparkle-icon {
+            margin-right: auto;
         }
 
         .dish-desc {
@@ -154,6 +159,12 @@
         .dish-card:hover .sparkle-icon {
             opacity: 1;
             transform: scale(1.2);
+        }
+
+        .veggie-icon {
+            color: #4caf50;
+            font-size: 13px;
+            margin-left: 6px;
         }
 
         /* רשת למרקים ותוספות לחסכון במקום */
@@ -265,6 +276,130 @@
             white-space: nowrap;
         }
 
+        .add-to-order-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-family: 'Heebo', sans-serif;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .add-to-order-btn:hover {
+            background: #c19b2e;
+            transform: scale(1.05);
+        }
+
+        .order-summary-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-family: 'Heebo', sans-serif;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            z-index: 90;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .order-summary-btn:hover {
+            background: #c19b2e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+        }
+
+        .order-count {
+            background: white;
+            color: var(--accent-color);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .order-list {
+            text-align: right;
+            margin: 20px 0;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+
+        .order-item {
+            background: #f9f9f9;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-item-name {
+            font-weight: 500;
+        }
+
+        .remove-item-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .remove-item-btn:hover {
+            background: #cc0000;
+        }
+
+        .send-order-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-family: 'Heebo', sans-serif;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .send-order-btn:hover {
+            background: #20BA5A;
+        }
+
+        .empty-order {
+            text-align: center;
+            color: #999;
+            padding: 30px;
+        }
+
     </style>
 </head>
 <body>
@@ -277,6 +412,7 @@
         <a href="#mexican" class="nav-item">מקסיקני</a>
         <a href="#mideast" class="nav-item">מזרח תיכון</a>
         <a href="#meats" class="nav-item">בשרים</a>
+        <a href="#vegetarian" class="nav-item">צמחוני</a>
         <a href="#sides" class="nav-item">תוספות</a>
         <a href="#desserts" class="nav-item">קינוחים</a>
     </nav>
@@ -291,41 +427,41 @@
         <h2 id="starters" class="category-header">מנות פתיחה</h2>
         
         <div class="dish-card" onclick="askChef('Deviled Eggs', 'חצאי ביצים קשות במילוי קרמי של חלמונים, מיונז ובצל')">
-            <div class="dish-name">Deviled Eggs <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> Deviled Eggs <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">חצאי ביצים קשות במילוי קרמי של חלמונים, מיונז ובצל</div>
         </div>
         <div class="dish-card" onclick="askChef('ארנצ׳יני', 'כדורי ריזוטו פריכים בציפוי פנקו וממולאים בגבינות')">
-            <div class="dish-name">ארנצ׳יני <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> ארנצ׳יני <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">כדורי ריזוטו פריכים בציפוי פנקו וממולאים בגבינות</div>
         </div>
         <div class="dish-card" onclick="askChef('סלט תפוחי אדמה של סבא', 'סלט קלאסי עם תפוחי אדמה, ביצים קשות ומיונז')">
-            <div class="dish-name">סלט תפוחי אדמה של סבא <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> סלט תפוחי אדמה של סבא <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">סלט קלאסי עם תפוחי אדמה, ביצים קשות ומיונז</div>
         </div>
         <div class="dish-card" onclick="askChef('ברוסקטות עגבניות', 'לחם קלוי פריך עם עגבניות טריות, שום ובזיליקום')">
-            <div class="dish-name">ברוסקטות עגבניות <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> ברוסקטות עגבניות <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">לחם קלוי עם עגבניות שרי קצוצות, בזיליקום ובלסמי מצומצם</div>
         </div>
         <div class="grid-section">
             <div class="dish-card" onclick="askChef('חלומי מטוגן', 'פרוסות גבינת חלומי צרובות בחמאה עד להזהבה')">
-                <div class="dish-name">חלומי מטוגן <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+                <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> חלומי מטוגן <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
                 <div class="dish-desc">פרוסות גבינה צרובות בחמאה</div>
             </div>
             <div class="dish-card" onclick="askChef('קפרזה', 'סלט איטלקי רענן עם כדורי מוצרלה, עגבניות ובזיליקום')">
-                <div class="dish-name">קפרזה <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+                <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> קפרזה <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
                 <div class="dish-desc">מוצרלה, עגבניות ובזיליקום</div>
             </div>
         </div>
         <div class="dish-card" onclick="askChef('פלטת גבינות', 'מבחר גבינות משובחות, נקניקים וקרקרים')">
-            <div class="dish-name">פלטת גבינות <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> פלטת גבינות <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">מבחר גבינות משובחות, נקניקים וקרקרים</div>
         </div>
         <div class="dish-card" onclick="askChef('גבינה מגניבה לנשנוש', 'קוביות גבינה קשה מוקפצות בחמאה ועשבי תיבול')">
-            <div class="dish-name">גבינה מגניבה לנשנוש <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> גבינה מגניבה לנשנוש<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">קוביות גבינה קשה מוקפצות בחמאה ועשבי תיבול</div>
         </div>
         <div class="dish-card" onclick="askChef('סלט קיסר', 'לבבות חסה ברוטב קיסר עשיר עם פרמזן וקרוטונים')">
-            <div class="dish-name">סלט קיסר <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> סלט קיסר<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">לבבות חסה ברוטב קיסר עשיר עם פרמזן וקרוטונים</div>
         </div>
         
@@ -333,13 +469,13 @@
         <h3 style="text-align:center; margin-top:30px; font-size:18px; color:#888;">— מרקים —</h3>
         <div class="grid-section">
             <div class="dish-card soup-tag" onclick="askChef('דאל עדשים', 'נזיד עדשים כתומות סמיך בתיבול ג׳ינג׳ר ובצל')">
-                <div class="dish-name">דאל עדשים <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+                <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> דאל עדשים<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             </div>
-            <div class="dish-card soup-tag" onclick="askChef('מרק עדשים', 'מרק חורפי עשיר מעדשים שחורות וחומות')">
-                <div class="dish-name">מרק עדשים חורפי<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-card soup-tag" onclick="askChef('מרק עדשים חורפי', 'מרק חורפי עשיר מעדשים שחורות וחומות')">
+                <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> מרק עדשים חורפי<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             </div>
             <div class="dish-card soup-tag" onclick="askChef('מרק תירס', 'מרק תירס קטיפתי עם נתחי חזה עוף')">
-                <div class="dish-name">מרק תירס <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+                <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> מרק תירס<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
                 <div class="dish-desc" style="font-size:12px;">ניתן להוסיף עוף</div>
             </div>
         </div>
@@ -347,46 +483,42 @@
         <!-- איטלקי -->
         <h2 id="italian" class="category-header">איטלקי</h2>
         <div class="dish-card" onclick="askChef('ריזוטו בטטה', 'תבשיל אורז איטלקי קרמי עם בטטות ויין לבן')">
-            <div class="dish-name">ריזוטו בטטה <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> ריזוטו בטטה<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">תבשיל אורז איטלקי קרמי עם בטטות ויין לבן</div>
         </div>
-        <div class="dish-card" onclick="askChef('פסטה/רביולי', 'פסטה טרייה או רביולי ברוטב עשיר לבחירה')">
-            <div class="dish-name">פסטה / רביולי <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+        <div class="dish-card" onclick="askChef('פסטה / רביולי', 'פסטה טרייה או רביולי ברוטב עשיר לבחירה')">
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> פסטה / רביולי<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">פסטה טרייה או רביולי ברוטב עשיר לבחירה</div>
         </div>
-        <div class="dish-card" onclick="askChef('Marry Me Chicken Risotto', 'ריזוטו עגבניות מיובשות עשיר עם נתחי עוף')">
-            <div class="dish-name">One Pot Marry Me Risotto <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+        <div class="dish-card" onclick="askChef('One Pot Marry Me Chicken Risotto', 'One Pot Marry Me Chicken Risotto')">
+            <div class="dish-name">One Pot Marry Me Chicken Risotto<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">ריזוטו עגבניות מיובשות עשיר עם נתחי עוף</div>
         </div>
         <div class="dish-card" onclick="askChef('פסטו', 'מנה ברוטב בזיליקום טרי, שום ושמן זית')">
-            <div class="dish-name">פסטו <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> פסטו<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">פסטה לבחירה ברוטב בזיליקום טרי, שום ופרמז'ן</div>
         </div>
         <div class="dish-card" onclick="askChef('קאצ׳ו אה פפה', 'פסטה רומאית ברוטב גבינות פיקורינו ופרמזן עם פלפל שחור')">
-            <div class="dish-name">קאצ׳ו אה פפה <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> קאצ׳ו אה פפה<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">פסטה רומאית ברוטב גבינות פיקורינו ופרמזן עם פלפל שחור</div>
-        </div>
-        <div class="dish-card" onclick="askChef('חצ׳פורי אג׳רולי', 'מאפה סירה גיאורגי במילוי גבינות וביצה רכה')">
-            <div class="dish-name">חצ׳פורי אג׳רולי <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
-            <div class="dish-desc">מאפה סירה גיאורגי במילוי גבינות וביצה רכה</div>
         </div>
 
         <!-- אסייתי -->
         <h2 id="asian" class="category-header">אסייתי</h2>
-        <div class="dish-card" onclick="askChef('ראמן', 'מרק יפני עשיר עם ציר עמוק, אטריות וירקות')">
-            <div class="dish-name">שויו ראמן <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+        <div class="dish-card" onclick="askChef('שויו ראמן', 'מרק יפני עשיר עם ציר עמוק, אטריות וירקות')">
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> שויו ראמן<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">מוגש עם טמאגו, ברוקולי, נבטים וטופו או עוף לבחירה</div>
         </div>
         <div class="dish-card" onclick="askChef('ראמן חמאת בוטנים', 'מרק אטריות מפנק עם חלב קוקוס, חמאת בוטנים וקארי')">
-            <div class="dish-name">ראמן חמאת בוטנים <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name">ראמן חמאת בוטנים<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">ראמן עם איטריות אודון מבוסס על חמאת בוטנים</div>
         </div>
         <div class="dish-card" onclick="askChef('קארי', 'תבשיל חלב קוקוס ארומטי עם עוף או טופו וירקות')">
-            <div class="dish-name">קארי <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> קארי<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">עוף או טופו וירקות</div>
         </div>
         <div class="dish-card" onclick="askChef('נודל סופ תאילנדי', 'מרק אטריות בניחוח אסייתי עם ג׳ינג׳ר ושום')">
-            <div class="dish-name">נודל סופ תאילנדי <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name">נודל סופ תאילנדי<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">מרק אטריות אורז/שעועית לבחירה</div>
         </div>
         <div class="dish-card" onclick="askChef('פאד קפאו', 'בשר קצוץ מוקפץ עם בזיליקום וצ׳ילי ברוטב אסייתי')">
@@ -401,7 +533,7 @@
         <!-- מקסיקני -->
         <h2 id="mexican" class="category-header">מקסיקני</h2>
         <div class="dish-card" onclick="askChef('צ׳ילי קון קרנה', 'תבשיל קדרה של בשר ושעועית ברוטב עגבניות פיקנטי')">
-            <div class="dish-name">צ׳ילי קון קרנה <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> צ׳ילי קון קרנה<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">תבשיל קדרה של בשר ושעועית ברוטב עגבניות פיקנטי</div>
         </div>
         <div class="dish-card" onclick="askChef('צ׳יקן אנצ׳ילדה קסארול', 'מאפה שכבות טורטייה עם עוף וגבינות מוקרמות')">
@@ -412,7 +544,7 @@
         <!-- מזרח תיכון -->
         <h2 id="mideast" class="category-header">מזרח תיכון</h2>
         <div class="dish-card" onclick="askChef('שקשוקה', 'ביצים טריות מבושלות ברוטב עגבניות ופלפלים פיקנטי')">
-            <div class="dish-name">שקשוקה <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> שקשוקה<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc"></div>
         </div>
         <div class="dish-card" onclick="askChef('קבבים', 'קציצות בשר עסיסיות צלויות עם בצל ופטרוזיליה')">
@@ -448,7 +580,7 @@
                 <div class="dish-desc">חזה הודו בתיבול פפריקה</div>
             </div>
         </div>
-        <div class="dish-card" onclick="askChef('קציצות ברוטב', 'כדורי בשר ברוטב עגבניות ביתי ושעועית')">
+        <div class="dish-card" onclick="askChef('קציצות ברוטב עגבניות', 'כדורי בשר ברוטב עגבניות ביתי ושעועית')">
             <div class="dish-name">קציצות ברוטב עגבניות <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc"></div>
         </div>
@@ -464,36 +596,47 @@
             <div class="dish-name">פרגיות על הפלאנצ׳ה <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">נתחי פרגית צרובים במרינדת דבש וסויה</div>
         </div>
+        
+        <!-- צמחוני -->
+        <h2 id="vegetarian" class="category-header">צמחוני</h2>
+        <div class="dish-card" onclick="askChef('נאגצ טופו', 'קוביות טופו בטמפורה')">
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> נאגצ טופו<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-desc">קוביות טופו בטמפורה</div>
+        </div>
+        <div class="dish-card" onclick="askChef('חצ׳פורי אג׳רולי', 'מאפה סירה גיאורגי במילוי גבינות וביצה רכה')">
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> חצ׳פורי אג׳רולי<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-desc">מאפה סירה גיאורגי במילוי גבינות וביצה רכה</div>
+        </div>
 
         <!-- תוספות -->
         <h2 id="sides" class="category-header">תוספות</h2>
         <div class="grid-section">
             <div class="dish-card" onclick="askChef('גרטן תפוחי אדמה', 'פרוסות תפוחי אדמה אפויות בשמנת ורוזמרין')">
-                <div class="dish-name">גרטן תפוחי אדמה</div>
+                <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> גרטן תפוחי אדמה</div>
                 <div class="dish-desc">בשמנת ורוזמרין</div>
             </div>
             <div class="dish-card" onclick="askChef('אספרגוס', 'גבעולי אספרגוס חלוטים ומוקפצים בשמן זית')">
-                <div class="dish-name">אספרגוס</div>
+                <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> אספרגוס</div>
                 <div class="dish-desc">מוקפץ בלימון ושום</div>
             </div>
             <div class="dish-card" onclick="askChef('פירה / פירה בטטה', 'מחית תפוחי אדמה או בטטה במרקם קטיפתי')">
-                <div class="dish-name">פירה / פירה בטטה</div>
+                <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> פירה / פירה בטטה</div>
                 <div class="dish-desc">מחית קטיפתית</div>
             </div>
             <div class="dish-card" onclick="askChef('אורז שווה', 'אורז לבן מתובל עם גזר ובצל מטוגן')">
-                <div class="dish-name">אורז שווה</div>
-                <div class="dish-desc">עם גזר, בצל מטוגן ועגבניות שרי</div>
+                <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> אורז שווה</div>
+                <div class="dish-desc">עם גזר, בצל מטוגן ועגבניות שרי. ניתן להוסיף טופו</div>
             </div>
         </div>
 
         <!-- קינוחים -->
         <h2 id="desserts" class="category-header">קינוחים</h2>
         <div class="dish-card" onclick="askChef('עוגת גזר', 'עוגה בחושה לחה ועשירה בגזר ואגוזים')">
-            <div class="dish-name">עוגת גזר <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> עוגת גזר<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">עוגה בחושה לחה ועשירה בגזר ואגוזים</div>
         </div>
         <div class="dish-card" onclick="askChef('כדורי תמרים', 'חטיפי בריאות מתוקים מתמרים ואגוזים')">
-            <div class="dish-name">כדורי תמרים <i class="fa-solid fa-sparkles sparkle-icon"></i></div>
+            <div class="dish-name"><i class="fa-solid fa-leaf veggie-icon"></i> כדורי תמרים<i class="fa-solid fa-sparkles sparkle-icon"></i></div>
             <div class="dish-desc">חטיפי בריאות מתוקים מתמרים ואגוזים</div>
         </div>
 
@@ -508,18 +651,100 @@
                 <!-- Content injected via JS -->
             </div>
             
+            <button class="add-to-order-btn" id="addToOrderBtn" onclick="addToOrder()">
+                <i class="fa-solid fa-cart-plus"></i> הוסף להזמנה
+            </button>
             <button class="close-btn" onclick="closeModal()">תודה, סגור</button>
         </div>
     </div>
+
+    <!-- Order Summary Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-content">
+            <h3 class="modal-title">סיכום ההזמנה שלך</h3>
+            
+            <div id="orderList" class="order-list">
+                <!-- Order items will be injected here -->
+            </div>
+            
+            <button class="send-order-btn" onclick="sendOrderViaWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i> שלח הזמנה בוואטסאפ
+            </button>
+            <button class="close-btn" onclick="closeOrderModal()">סגור</button>
+        </div>
+    </div>
+
+    <!-- Order Summary Button (Fixed) -->
+    <button class="order-summary-btn" id="orderSummaryBtn" onclick="openOrderModal()" style="display: none;">
+        <i class="fa-solid fa-shopping-cart"></i>
+        <span>ההזמנה שלי</span>
+        <span class="order-count" id="orderCount">0</span>
+    </button>
 
     <script>
         const aiModal = document.getElementById('aiModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalBody = document.getElementById('modalBody');
+        const orderModal = document.getElementById('orderModal');
+        const orderSummaryBtn = document.getElementById('orderSummaryBtn');
+        const orderCount = document.getElementById('orderCount');
+        const orderList = document.getElementById('orderList');
+
+        // Order management
+        let orderItems = [];
+        let currentDishName = '';
+
+        // Dish images mapping
+        const dishImages = {
+            'Deviled Eggs': 'deviled_eggs.png',
+            'ארנצ׳יני': 'arenchinie.png',
+            'סלט תפוחי אדמה של סבא': 'potato_salad.jpg',
+            'ברוסקטות עגבניות': 'tomamo_brusketot.png',
+            'חלומי מטוגן': 'grilled_hallumi.jpg',
+            'קפרזה': 'kapreze.jpg',
+            'פלטת גבינות': 'cheese_plate.jpg',
+            'גבינה מגניבה לנשנוש': 'cool_cheese.png',
+            'סלט קיסר': 'caesar_salad.jpg',
+            'דאל עדשים': 'dal_soup.png',
+            'מרק עדשים חורפי': 'lentil_soup.png',
+            'מרק תירס': 'corn_soup.jpg',
+            'ריזוטו בטטה': 'sweetpotato_risoto.png',
+            'פסטה / רביולי': 'homemade_pasta.jpg',
+            'One Pot Marry Me Chicken Risotto': 'one_pot_marry_me_chicken_risoto.png',
+            'פסטו': 'pesto.png',
+            'קאצ׳ו אה פפה': 'cacio_e_pepe.jpg',
+            'חצ׳פורי אג׳רולי': 'hachapuri.jpg',
+            'שויו ראמן': 'ramen.jpg',
+            'ראמן חמאת בוטנים': 'peanut_butter_ramen.png',
+            'קארי': 'curry.png',
+            'נודל סופ תאילנדי': 'thai_noodle_soup.jpg',
+            'פאד קפאו': 'pad_ka_prau.jpg',
+            'צ׳יקן טיקה מסאלה': 'chicken_tika_massala.jpg',
+            'צ׳ילי קון קרנה': 'chillie_con_carne.jpg',
+            'צ׳יקן אנצ׳ילדה קסארול': 'chicken_inchillada_casarole.png',
+            'שקשוקה': 'shakshuka.jpg',
+            'קבבים': 'kebabs.jpg',
+            'קבבים על מקלות קינמון': 'kababim_on_cinamon.png',
+            'Steak & Egg': 'steak_and_egg.jpg',
+            'צלי בקר': 'beef_stew.png',
+            'צלי עוף': 'chicken_stew.png',
+            'פסטרמה בקר': 'beef_pastrame.png',
+            'פסטרמה הודו': 'turkey_pastrame.png',
+            'קציצות ברוטב עגבניות': 'ktzitzot_with_beans.jpg',
+            'שניצלים': 'shnitzels.png',
+            'סלט בעיקר עוף': 'almost_only_chicken_salad.png',
+            'פרגיות על הפלאנצ׳ה': 'chicken_thighs_on_plancha.jpg',
+            'גרטן תפוחי אדמה': 'garten.jpg',
+            'אספרגוס': 'asparagus.png',
+            'פירה / פירה בטטה': 'mashed_potatoes.png',
+            'אורז שווה': '',
+            'עוגת גזר': 'carrot_cake.png',
+            'כדורי תמרים': 'date_balls.png',
+            'נאגצ טופו': ''
+        };
 
         function openModal() {
             aiModal.classList.add('active');
-            // Prevent body scroll when modal is open
             document.body.style.overflow = 'hidden';
         }
 
@@ -528,53 +753,111 @@
             document.body.style.overflow = '';
         }
 
+        function openOrderModal() {
+            renderOrderList();
+            orderModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeOrderModal() {
+            orderModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // Close on click outside
         aiModal.addEventListener('click', (e) => {
             if (e.target === aiModal) closeModal();
         });
 
-        async function askChef(dishName, dishDesc) {
+        orderModal.addEventListener('click', (e) => {
+            if (e.target === orderModal) closeOrderModal();
+        });
+
+        function askChef(dishName, dishDesc) {
+            currentDishName = dishName;
             modalTitle.textContent = dishName;
-            modalBody.innerHTML = `
-                <div class="loading-spinner"><i class="fa-solid fa-circle-notch"></i></div>
-                <p>השף טועם ומחפש התאמה מושלמת...</p>
-            `;
-            openModal();
-
-            const apiKey = ""; // API Key Injected automatically
-            // Prompt specifically designed for Hebrew response
-            const prompt = `
-            Act as a Michelin star chef and sommelier.
-            The user selected the dish: "${dishName}" - "${dishDesc}".
             
-            Please provide a response in Hebrew (עברית) containing:
-            1. A short, mouth-watering gourmet description of the dish (max 2 sentences).
-            2. A perfect wine or beverage pairing with a brief explanation why.
+            const imagePath = dishImages[dishName];
             
-            Format the response in HTML using <strong> for highlights. Do not use Markdown.
-            Keep it elegant and appetizing.
-            `;
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: prompt }] }]
-                    })
-                });
-
-                if (!response.ok) throw new Error('API Error');
-
-                const data = await response.json();
-                const aiText = data.candidates[0].content.parts[0].text;
-                
-                modalBody.innerHTML = `<div class="ai-response">${aiText}</div>`;
-
-            } catch (error) {
-                console.error(error);
-                modalBody.innerHTML = `<p style="color:#d4af37">מתנצלים, השף עסוק כרגע. נסו שוב מאוחר יותר.</p>`;
+            if (imagePath) {
+                modalBody.innerHTML = `
+                    <div class="ai-response">
+                        <img src="imgs/${imagePath}" alt="${dishName}" style="width: 100%; border-radius: 8px; margin-top: 10px;">
+                    </div>
+                `;
+            } else {
+                modalBody.innerHTML = `<p style="color:#d4af37">תמונה של המנה תתווסף בקרוב...</p>`;
             }
+            
+            openModal();
+        }
+
+        function addToOrder() {
+            if (currentDishName && !orderItems.includes(currentDishName)) {
+                orderItems.push(currentDishName);
+                updateOrderCount();
+                
+                // Show success feedback
+                const addBtn = document.getElementById('addToOrderBtn');
+                const originalText = addBtn.innerHTML;
+                addBtn.innerHTML = '<i class="fa-solid fa-check"></i> נוסף להזמנה!';
+                addBtn.style.background = '#4caf50';
+                
+                setTimeout(() => {
+                    addBtn.innerHTML = originalText;
+                    addBtn.style.background = '';
+                }, 1500);
+            }
+        }
+
+        function updateOrderCount() {
+            const count = orderItems.length;
+            orderCount.textContent = count;
+            
+            if (count > 0) {
+                orderSummaryBtn.style.display = 'flex';
+            } else {
+                orderSummaryBtn.style.display = 'none';
+            }
+        }
+
+        function removeFromOrder(index) {
+            orderItems.splice(index, 1);
+            updateOrderCount();
+            renderOrderList();
+        }
+
+        function renderOrderList() {
+            if (orderItems.length === 0) {
+                orderList.innerHTML = '<div class="empty-order"><i class="fa-solid fa-basket-shopping" style="font-size:40px; margin-bottom:15px; opacity:0.3;"></i><p>ההזמנה שלך ריקה</p></div>';
+                return;
+            }
+
+            orderList.innerHTML = orderItems.map((item, index) => `
+                <div class="order-item">
+                    <span class="order-item-name">${item}</span>
+                    <button class="remove-item-btn" onclick="removeFromOrder(${index})">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function sendOrderViaWhatsApp() {
+            if (orderItems.length === 0) {
+                alert('ההזמנה שלך ריקה!');
+                return;
+            }
+
+            const message = `שף יקר,
+אשמח לבצע הזמנה של הפריטים הבאים:
+${orderItems.map(item => `• ${item}`).join('\n')}
+תודה ובהצלחה!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/972509424445?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
         }
     </script>
 </body>
